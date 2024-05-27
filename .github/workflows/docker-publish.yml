@@ -13,10 +13,10 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build Docker image
-        run: docker build -t my_project .
+        run: docker build -t my_proj .
 
       - name: Run make
-        run: docker run --rm -v //c/Users/HP/MY_PROJECT:/karimamahgoune123/my_project -w /karimamahgoune123/my_project my_project:latest make
+        run: docker run --rm -v $(pwd):/usr/src/myapp -w /usr/src/myapp my_proj make
 
       - name: Run tests
-        run: docker run --rm -v //c/Users/HP/MY_PROJECT:/karimamahgoune123/my_project -w /karimamahgoune123/my_project my_project:latest make test
+        run: docker run --rm -v $(pwd):/usr/src/myapp -w /usr/src/myapp my_proj make test
