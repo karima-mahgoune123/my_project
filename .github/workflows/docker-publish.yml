@@ -16,7 +16,7 @@ jobs:
         run: docker build -t my_project .
 
       - name: Run make
-        run: docker run --rm -v C:\Users\HP\MY_PROJECT:/usr/src/myapp -w /usr/src/myapp my_project:latest make
+        run: docker run --rm -v C:\Users\HP\MY_PROJECT:/Users/HP/MY_PROJECT -w /Users/HP/MY_PROJECT my_project:latest make
 
       - name: Run tests
-        run: docker run --rm -v C:\Users\HP\MY_PROJECT:/usr/src/myapp -w /usr/src/myapp my_project:latest make test
+        run: docker run --rm -v C:\Users\HP\MY_PROJECT:/Users/HP/MY_PROJECT -w /Users/HP/MY_PROJECT my_project:latest make test
