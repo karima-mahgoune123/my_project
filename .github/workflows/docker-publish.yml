@@ -12,14 +12,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Log in to DockerHub
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
       - name: Build Docker image
-        run: docker build -t my_project .
+        run: docker build -t my_project:latest .
+
+      - name: Push Docker image to DockerHub
+        run: docker tag my_project:latest ${{ secrets.DOCKERHUB_USERNAME }}/my_project:latest
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/my_project:latest
 
       - name: Run make
-        run: docker run --rm -v $(pwd):/usr/src/myapp -w /usr/src/myapp my_project make
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp my_project:latest make
 
       - name: Run tests
-        run: docker run --rm -v $(pwd):/usr/src/myapp -w /usr/src/myapp my_project make test
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp my_project:latest make test
 
       - name: List files
         run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp my_project:latest ls -l
