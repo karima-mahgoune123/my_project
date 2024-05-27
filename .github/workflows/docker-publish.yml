@@ -1,0 +1,22 @@
+name: Build and Test my_proj
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: docker build -t my_proj .
+
+      - name: Run make
+        run: docker run --rm -v $(pwd):/usr/src/myapp -w /usr/src/myapp my_proj make
+
+      - name: Run tests
+        run: docker run --rm -v $(pwd):/usr/src/myapp -w /usr/src/myapp my_proj make test
