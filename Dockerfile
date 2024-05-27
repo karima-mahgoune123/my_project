@@ -24,8 +24,5 @@ RUN gcc -Wall -g -I/usr/include -c TestProtocol.c -o TestProtocol.o
 # Lier les objets compilés
 RUN gcc -Wall -g -o my_project.bin SWC.o TestProtocol.o -L/usr/lib -lcunit
 
-# Copier my_project.bin dans un répertoire accessible
-RUN mkdir -p /output && cp my_project.bin /output/
-
 # Exécuter les tests/unités
 CMD ["./my_project.bin"]
