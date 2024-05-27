@@ -22,7 +22,7 @@ RUN gcc -Wall -g -I/usr/include -c SWC.c -o SWC.o
 RUN gcc -Wall -g -I/usr/include -c TestProtocol.c -o TestProtocol.o
 
 # Lier les objets compilés
-RUN gcc -Wall -g -o MY_PROJECT.bin SWC.o TestProtocol.o -L/usr/lib -lcunit
+RUN gcc -Wall -g -o my_project.bin SWC.o TestProtocol.o -L/usr/lib -lcunit
 
 # Exécuter les tests/unités
-CMD ["./MY_PROJECT.bin"]
+CMD ["./my_project.bin"]

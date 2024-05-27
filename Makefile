@@ -8,7 +8,7 @@ CFLAGS = -Wall -g -I/usr/include
 OBJ = SWC.o TestProtocol.o
 
 # Définir la cible
-TARGET = MY_PROJECT.bin
+TARGET = my_project.bin
 
 # Règles de compilation
 all: $(TARGET)
@@ -20,7 +20,7 @@ $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 test:
-	./MY_PROJECT.bin
+	./my_project.bin
 
 clean:
 	rm -f $(OBJ) $(TARGET)
