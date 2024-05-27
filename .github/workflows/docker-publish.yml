@@ -20,7 +20,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
+
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -35,3 +35,6 @@ jobs:
 
       - name: List files
         run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp my_project:latest ls -l
+
+      - name: Execute my_project.bin
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/my_project ./my_project.bin
