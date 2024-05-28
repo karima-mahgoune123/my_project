@@ -36,15 +36,6 @@ jobs:
       - name: List files
         run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp my_project ls -l
 
-      - name: Execute my_project.bin
-        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp my_project ./my_project.bin
-
-      - name: Extract my_project.bin from Docker container
-        run: |
-          docker create --name temp_container my_project
-          docker cp temp_container:/usr/src/myapp/my_project.bin ${{ github.workspace }}/my_project.bin
-          docker rm temp_container
-
       - name: Upload my_project.bin as artifact
         uses: actions/upload-artifact@v3
         with:
