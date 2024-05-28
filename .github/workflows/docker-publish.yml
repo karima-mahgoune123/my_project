@@ -28,13 +28,25 @@ jobs:
         run: docker build -t my_project .
 
       - name: Run make
-        run: docker run --rm -v $(pwd):/usr/src/myapp -w /usr/src/myapp my_project make
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp my_project make
 
       - name: Run tests
-        run: docker run --rm -v $(pwd):/usr/src/myapp -w /usr/src/myapp my_project make test
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp my_project make test
 
       - name: List files
-        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp my_project:latest ls -l
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp my_project ls -l
 
       - name: Execute my_project.bin
-        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp karimamahgoune123/my_project ./my_project.bin
+        run: docker run --rm -v ${{ github.workspace }}:/usr/src/myapp -w /usr/src/myapp my_project ./my_project.bin
+
+      - name: Extract my_project.bin from Docker container
+        run: |
+          docker create --name temp_container my_project
+          docker cp temp_container:/usr/src/myapp/my_project.bin ${{ github.workspace }}/my_project.bin
+          docker rm temp_container
+
+      - name: Upload my_project.bin as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: my_project.bin
+          path: my_project.bin
