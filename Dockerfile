@@ -1,9 +1,6 @@
 # Utiliser une image de base appropriée
 FROM ubuntu:latest
 
-# Utiliser une image de base appropriée
-FROM ubuntu:latest
-
 # Installer les outils nécessaires
 RUN apt-get update && apt-get install -y \
     gcc \
